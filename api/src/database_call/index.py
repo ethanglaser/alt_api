@@ -18,6 +18,7 @@ database_blp = Blueprint(
 
 CORS(database_blp)
 
+
 class DatabaseArgs:
     """
     database args
@@ -26,6 +27,7 @@ class DatabaseArgs:
     def __init__(self, user_id: str, topic: str) -> None:
         self.user_id = user_id
         self.topic = topic
+
 
 class DatabaseArgsSchema(Schema):
     """
@@ -42,6 +44,7 @@ class DatabaseArgsSchema(Schema):
         create object initialization
         """
         return DatabaseArgs(**data)
+
 
 class DatabaseRes:
     """
@@ -73,7 +76,7 @@ class Index(MethodView):
     """
     @database_blp.arguments(DatabaseArgsSchema)
     @database_blp.response(HTTPStatus.OK, DatabaseResSchema)
-    def post(self, args: DatabaseArgs) -> DatabaseResSchema:
+    def post(self, _args: DatabaseArgs) -> DatabaseResSchema:
         """
         post request
         """

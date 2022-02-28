@@ -1,6 +1,6 @@
 import Layout from "layouts/main";
 import { FunctionComponent } from "react";
-import { Heading, Flex, Container } from "@chakra-ui/react";
+import { Heading, Flex, Container, Button } from "@chakra-ui/react";
 import SEO from "components/SEO";
 
 const Index: FunctionComponent = () => {
@@ -12,6 +12,9 @@ const Index: FunctionComponent = () => {
         <Flex mb={10} width="full" align="center" justifyContent="center">
           <Heading as="h2">Home</Heading>
         </Flex>
+        <Button mt="6" onClick={() => {
+          alert('hi')
+        }}>Hello world</Button>
       </Container>
     </Layout>
   );
