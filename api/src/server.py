@@ -17,6 +17,7 @@ from utils.main import relative_file_path
 from utils.config import SECRET_KEY, BASE_PATH, DOCS_PATH, API_TITLE, API_VERSION, PRODUCTION
 from utils.middleware import get_auth
 from misc.index import index_blp
+from database_call.index import database_blp
 from auth.auth import auth_blp
 from auth.users import users_blp
 
@@ -95,6 +96,7 @@ def build_server() -> Flask:
     api.register_blueprint(index_blp)
     api.register_blueprint(auth_blp)
     api.register_blueprint(users_blp)
+    api.register_blueprint(database_blp)
 
     # generate swagger file
 
