@@ -34,12 +34,14 @@ for path in "${script_paths[@]}"; do
   fi
 done
 
-git secrets --scan
+if [ "$(expr substr $(uname -s) 1 10)" != "MINGW64_NT" ]; then
+  git secrets --scan
+fi
 
 # run check for tabs precommit
 cd scripts/precommit
 ./spaces.sh
-./line_endings.sh
+# ./line_endings.sh
 ./check_symlinks.sh
 cd -
 

@@ -9,7 +9,7 @@ BASEDIR=$(dirname $0)
 cd "$BASEDIR/../.."
 
 line_endings_files=$(grep -R -I -U -P "\r$" \
-  --exclude-dir={.git,node_modules,.gradle,.cache,build,dist,data,.venv,tmp} .)
+  --exclude-dir={.git,node_modules,.gradle,.cache,build,dist,data,.lock,.venv,tmp} .)
 
 num_line_endings_files=$(echo -n "$line_endings_files" | grep -c '^')
 

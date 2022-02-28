@@ -1,9 +1,7 @@
 ############# CUSTOM ##################
 
 # ide
-.vscode/
 .idea/
-.~c9*
 venv/
 
 # ignore MAC files
