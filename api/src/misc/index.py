@@ -8,6 +8,10 @@ from flask_smorest import Blueprint
 from utils.message_object import MessageSchema
 from utils.config import BASE_PATH, DOCS_PATH
 from http import HTTPStatus
+from pymongo import MongoClient
+# pprint library is used to make the output look more pretty
+from pprint import pprint
+import certifi
 
 index_blp = Blueprint(
     'misc', 'index', url_prefix=BASE_PATH,
@@ -41,3 +45,21 @@ class Hello(MethodView):
         get request
         """
         return MessageSchema().load({'message': 'hello world'})
+
+@index_blp.route('/test')
+class Test(MethodView):
+    """
+    Hello world
+    """
+    @index_blp.response(HTTPStatus.OK, MessageSchema)  # return object
+    def get(self) -> MessageSchema:
+        """
+        get request
+        """
+        # connect to MongoDB, change the << MONGODB URL >> to reflect your own connection string
+        client = MongoClient('mongodb+srv://umd3313:cornell@cluster0-e8xg6.mongodb.net/test?retryWrites=true&w=majority', tlsCAFile=certifi.where())
+        db = client.admin
+        database = client['AletheiaDataDesk']
+        x = database.get_collection("BTC & ETH Stats")
+        print(x.find_one())
+        return MessageSchema().load({'message': 'testing api endpoint'})

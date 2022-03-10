@@ -57,7 +57,7 @@ def read_config() -> None:
 
     load_dotenv(find_dotenv(usecwd=True), override=True)
 
-    main_db_connection_uri: Optional[str] = getenv('MAIN_DB_CONNECTION_URI')
+    main_db_connection_uri: Optional[str] = MAIN_DB_CONNECTION_URI
     if main_db_connection_uri is None:
         raise ValueError('no main database connection uri provided')
     MAIN_DB_CONNECTION_URI = main_db_connection_uri
@@ -77,12 +77,12 @@ def read_config() -> None:
             raise ValueError(f'invalid port provided: {port}')
         PORT = port
 
-    secret_key: Optional[str] = getenv('SECRET_KEY')
+    secret_key: Optional[str] = ''
     if secret_key is None:
         raise ValueError('no secret key provided')
     SECRET_KEY = secret_key
 
-    recaptcha_secret: Optional[str] = getenv('RECAPTCHA_SECRET')
+    recaptcha_secret: Optional[str] = ''
     if recaptcha_secret is None:
         raise ValueError('no recaptcha secret provided')
     RECAPTCHA_SECRET = recaptcha_secret
@@ -106,8 +106,7 @@ def read_config() -> None:
     if production is not None:
         PRODUCTION = production == 'true'
 
-    installation_directory: Optional[str] = getenv(
-        'INSTALLATION_DIRECTORY')
+    installation_directory: Optional[str] = ''
     if installation_directory is None:
         raise ValueError('no installation directory provided')
     INSTALLATION_DIRECTORY = installation_directory
