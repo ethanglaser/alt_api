@@ -22,6 +22,8 @@ marshmallow-enum = {git = "https://github.com/h/marshmallow_enum.git"}
 requests = "^2.27.1"
 "ruamel.yaml" = "^0.17.21"
 PyYAML = "^6.0"
+pymongo = "^4.0.2"
+certifi = "^2021.10.8"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.931"

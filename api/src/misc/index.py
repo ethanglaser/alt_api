@@ -8,6 +8,9 @@ from flask_smorest import Blueprint
 from utils.message_object import MessageSchema
 from utils.config import BASE_PATH, DOCS_PATH
 from http import HTTPStatus
+from pymongo import MongoClient
+import certifi
+
 
 index_blp = Blueprint(
     'misc', 'index', url_prefix=BASE_PATH,
@@ -40,4 +43,10 @@ class Hello(MethodView):
         """
         get request
         """
+        client = MongoClient(
+            'mongodb+srv://umd3313:cornell@cluster0-e8xg6.mongodb.net/test?retryWrites=true&w=majority', tlsCAFile=certifi.where())
+        db = client.admin
+        database = client['AletheiaDataDesk']
+        x = database.get_collection("BTC & ETH Stats")
+        print(x.find_one())
         return MessageSchema().load({'message': 'hello world'})
