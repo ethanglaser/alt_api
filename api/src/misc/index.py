@@ -10,7 +10,7 @@ from utils.config import BASE_PATH, DOCS_PATH
 from http import HTTPStatus
 from pymongo import MongoClient
 import certifi
-
+from pprint import pprint
 
 index_blp = Blueprint(
     'misc', 'index', url_prefix=BASE_PATH,
@@ -39,7 +39,7 @@ class Hello(MethodView):
     Hello world
     """
     @index_blp.response(HTTPStatus.OK, MessageSchema)  # return object
-    def get(self) -> MessageSchema:
+    def get(self, timestamp: int) -> MessageSchema:
         """
         get request
         """
@@ -48,5 +48,18 @@ class Hello(MethodView):
         db = client.admin
         database = client['AletheiaDataDesk']
         x = database.get_collection("BTC & ETH Stats")
-        print(x.find_one())
+        myquery = {'end': {'$gt' : timestamp}}
+        
+        cursor = x.find(myquery)
+        print("gt", len(list(cursor)))
+        myquery = {'end': {'$lt' : timestamp}}
+        
+        cursor = x.find(myquery)
+        print("lt", len(list(cursor)))
+        myquery = {}
+        
+        cursor = x.find(myquery)
+        print("total", len(list(cursor)))
+        # for document in cursor:
+        #     pprint(document)
         return MessageSchema().load({'message': 'hello world'})
